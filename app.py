@@ -1,8 +1,6 @@
-from flask import Flask, render_template, Response, jsonify
+from flask import Flask, render_template, Response
 from Engine import VideoCamera
-from tensorflow.keras.models import load_model
 import cv2
-
 
 app = Flask(__name__)
 
@@ -26,4 +24,4 @@ def video_feed():
     return output
 
 if __name__ == '__main__':
-	app.run(host="0.0.0.0", port=5000, debug=True,threaded=False, use_reloader=True)
+	app.run(host="0.0.0.0", port=5000)
