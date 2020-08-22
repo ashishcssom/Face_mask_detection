@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings("ignore")
 import cv2
 import imutils
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
@@ -6,8 +8,8 @@ from tensorflow.keras.models import load_model
 import numpy as np
 import config
 import datetime
-
-
+global faceNet
+faceNet=cv2.dnn.readNet(config.prototxtPath, config.weightsPath)
 
 class VideoCamera:
 
@@ -19,6 +21,7 @@ class VideoCamera:
 
     def get_frame(self):
         _, frame = self.video.read()
+        maskNet=load_model(config.model)
 
         # DO WHAT YOU WANT WITH TENSORFLOW / KERAS AND OPENCV
 
@@ -91,8 +94,7 @@ class VideoCamera:
 
         # detect faces in the frame and determine if they are wearing a
         # face mask or not
-        (locs, preds) = detect_and_predict_mask(frame, cv2.dnn.readNet(config.prototxtPath, config.weightsPath), load_model(config.model))
-
+        (locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
         # loop over the detected face locations and their corresponding
         # locations
         for (box, pred) in zip(locs, preds):
