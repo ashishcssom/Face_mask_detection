@@ -78,7 +78,6 @@ pytextrank==2.0.2
 python-dateutil==2.8.1
 pytz==2020.1
 pyviz-comms==0.7.5
-pywin32==227
 PyYAML==5.3.1
 Quart==0.13.0
 requests==2.24.0
